@@ -31,4 +31,7 @@
   /* Links nas configurações */
   .config a {
     margin-right: 10px;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
   }
