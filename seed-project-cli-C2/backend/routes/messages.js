@@ -28,8 +28,8 @@ router.get("/", async function (req, res, next) {
     const messageFindTodos = await Message.find({});
 
     res.status(200).json({
-      myMsgSucesso: "Mensagens recuperadas com sucesso",
-      objSMessageSRecuparadoS: messageFindTodos,
+      myMsgSucesso: "Mensagem recuperada com sucesso!",
+      objSMessageSRecuperadoS: messageFindTodos,
     });
   } catch (err) {
     return res.status(500).json({

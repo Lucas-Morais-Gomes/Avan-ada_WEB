@@ -1,45 +1,41 @@
-var express = require("express");
+var express = require('express'); 
 var router = express.Router();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken")
 
-const User = require("../models/user"); // Importe o modelo de usuário
 
-router.post("/", async function (req, res, next) {
-  const userObject = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-  });
-  try {
-    const userSave = await userObject.save();
-    console.log(userSave);
+const User = require("../models/user");
 
-    res.status(201).json({
-      myMsgSucesso: "Usuário cadastrado com sucesso",
-      objUserSave: userSave,
-    });
-  } catch (err) {
-    return res.status(500).json({
-      myErrorTitle: "Server-Side: Um erro aconteceu ao salvar o usuário",
-      myError: err,
-    });
-  }
-});
+router.post("/", async (req, res) => {
+    try{
+        req.body.password = bcrypt.hashSync(req.body.password, 12);
 
-router.get("/", async function (req, res, next) {
-  try {
-    const users = await User.find({});
+        const user = await User.create(req.body);
+        res.json(user);
+    } catch (error) {
+        res.json({ error: error.message});
+    }
+})
 
-    res.status(200).json({
-      myMsgSucesso: "Usuários recuperados com sucesso",
-      objUsersRecuperados: users,
-    });
-  } catch (err) {
-    return res.status(500).json({
-      myErrorTitle: "Server-Side: Um erro aconteceu ao buscar os usuários",
-      myError: err,
-    });
-  }
-});
+router.post("/", async (req, res) => {
+    const user = await User.findOne({email: req.body.email});
+    if(!user) {
+        return res.json({ error: "Erro na senha/email"});
+    }
 
-module.exports = router;
+    const eq = bcrypt.compareSync(req.body.password, user.password)
+    if(!eq) {
+        return res.json({ error: "Erro na senha/email"});
+    }
+
+    res.json({sucess: "Login Correto", token: createToken(user)})
+})
+
+function createToken(user) {
+    const payload = {
+        user_id: user._id
+    }
+    return jwt.sign(payload, 'frase secreta');
+}
+
+module.exports = router; 

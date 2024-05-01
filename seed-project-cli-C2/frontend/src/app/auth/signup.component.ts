@@ -1,10 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import {
   FormGroup,
   FormControl,
   Validators,
   ReactiveFormsModule,
 } from "@angular/forms";
+import { UserService } from "./user.services";
 
 @Component({
   selector: "app-signup",
@@ -14,10 +15,14 @@ import {
 })
 export class SignupComponent implements OnInit {
   myForm!: FormGroup;
+  UserService = inject(UserService);
 
-  onSubmit() {
-    console.log(this.myForm);
-    this.myForm.reset();
+  async onSubmit() {
+    // console.log(this.myForm);
+    // this.myForm.reset();
+    const response = await this.UserService.register(this.myForm.value)
+    console.log(response)
+    
   }
 
   ngOnInit() {
