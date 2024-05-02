@@ -1,13 +1,13 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const path = require('path');
-const cors = require('cors');
-const mongoose = require('mongoose');
+const express = require("express"); // Importa o pacote Express
+const bodyParser = require("body-parser"); // Importa o pacote body-parser para análise de corpo de requisição
+const path = require('path'); // Importa o pacote path para lidar com caminhos de arquivos
+const cors = require('cors'); // Importa o pacote cors para habilitar o CORS
+const mongoose = require('mongoose'); // Importa o pacote mongoose para interagir com o MongoDB
 
-const messageRoutes = require('./routes/messages');
-const userRoutes = require('./routes/user'); // Importar a rota do usuário
+const messageRoutes = require('./routes/messages'); // Importa as rotas de mensagens
+const userRoutes = require('./routes/user'); // Importa as rotas de usuário
 
-const app = express();
+const app = express(); // Cria uma instância do aplicativo Express
 
 // Configuração do CORS
 const corsOptions = {
@@ -15,36 +15,23 @@ const corsOptions = {
   methods: ['GET', 'PUT', 'POST', 'DELETE'], // Permitir apenas esses métodos
 };  
 
-app.use(cors(corsOptions)); // Isso permite apenas a origem especificada e os métodos listados
+app.use(cors(corsOptions)); // Habilita o CORS para a origem e métodos especificados
 
 // Conexão com o MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/node-angular')
+mongoose.connect('mongodb://127.0.0.1:27017/node-angular') // Conecta ao MongoDB
   .then(() => {
-     console.log('Conexão com o MongoDB estabelecida com sucesso.');
+     console.log('Conexão com o MongoDB estabelecida com sucesso.'); // Mensagem de sucesso
   })
   .catch((error) => {
-    console.error('Erro na conexão com o MongoDB:', error);
+    console.error('Erro na conexão com o MongoDB:', error); // Mensagem de erro
   });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // Usa o body-parser para análise de JSON
+app.use(bodyParser.urlencoded({ extended: false })); // Usa o body-parser para análise de URL codificada
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); // Define o diretório público para servir arquivos estáticos
 
-// Configuração do CORS
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
-//   next();
-// });
+app.use('/message', messageRoutes); // Define as rotas para mensagens
+app.use('/user', userRoutes); // Define as rotas para usuários
 
-app.use('/message', messageRoutes);
-app.use('/user', userRoutes); // Registrar a rota do usuário
-
-// catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//   return res.render('index');
-// });
-
-module.exports = app;
+module.exports = app; // Exporta o aplicativo Express para uso em outros arquivos do Node.js

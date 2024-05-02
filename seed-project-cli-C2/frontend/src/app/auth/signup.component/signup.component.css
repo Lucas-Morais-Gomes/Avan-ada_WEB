@@ -1,0 +1,60 @@
+/* Estilo para o cabeçalho */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Estilo para o contêiner do formulário */
+.form-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Estilo para os campos de entrada */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Estilo para as mensagens de erro */
+.error-message {
+    color: red;
+}
+
+/* Estilo para o botão de cadastro */
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Estilo para o botão de cadastro quando estiver desativado */
+.btn-primary:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Estilo para os campos de entrada de texto */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Estilo para o seletor de país */
+#countryTS {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Estilo para os radio buttons e checkboxes */
+label {
+    margin-right: 10px;
+}

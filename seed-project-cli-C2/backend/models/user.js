@@ -6,6 +6,7 @@ const schema = new Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    message: {type: Schema.Types.ObjectId, ref: 'Message'},
     country: { type: String, required: true }, // Novo campo para país
     gender: { type: String }, // Novo campo para gênero
     acceptTerms: { type: Boolean, default: false } // Novo campo para aceitar termos

@@ -22,27 +22,23 @@ import { MessageService } from "../message.services";
   // providers: [MessageService]
 })
 export class MessageListComponent implements OnInit {
-  messageS: Message[] = [];
+  messageS: Message[] = []; // Lista de mensagens
 
-  constructor(private messageService: MessageService) {}
 
-  ngOnInit(): void {
-    //messageS aponta para o array messageSService que armazena os dados
-    // this.messageS = this.messageService.getMessages();
+  constructor(private messageService: MessageService) {} // Injeta o serviço de mensagem
 
-    this.messageService.getMessages().subscribe({
-      next: (dadosSucesso: any) => {
-        console.log(dadosSucesso.myMsgSucesso);
-        console.log({content: dadosSucesso.objSMessageSRecuperadoS[0].content});
-        console.log({
-          id: dadosSucesso.objSMessageSRecuperadoS[0].messageId,
-        });
+  ngOnInit(): void { // Método executado ao inicializar o componente
+    this.messageService.getMessages().subscribe({ // Obtém as mensagens do serviço
+      next: (dadosSucesso: any) => { // Lida com o sucesso da operação
+        console.log(dadosSucesso.myMsgSucesso); // Exibe uma mensagem de sucesso
+        console.log({content: dadosSucesso.objSMessageSRecuperadoS[0].content}); // Exibe o conteúdo da primeira mensagem recuperada
+        console.log({id: dadosSucesso.objSMessageSRecuperadoS[0].messageId}); // Exibe o ID da primeira mensagem recuperada
 
-        this.messageS = dadosSucesso.objSMessageSRecuperadoS;
+        this.messageS = dadosSucesso.objSMessageSRecuperadoS; // Atribui as mensagens recuperadas à lista de mensagens
       },
-      error: (dadosErro) => {
-        console.log(`$== !!Error (subscribe): - ${dadosErro.info_extra} ==`);
-        console.log(dadosErro);
+      error: (dadosErro) => { // Lida com erros
+        console.log(`$== !!Error (subscribe): - ${dadosErro.info_extra} ==`); // Exibe uma mensagem de erro
+        console.log(dadosErro); // Exibe detalhes do erro
       },
     });
   }

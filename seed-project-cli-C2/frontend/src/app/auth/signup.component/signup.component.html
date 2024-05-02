@@ -1,8 +1,9 @@
-<h1>SIGN UP</h1>
-<div class="col-md-8 col-md-offset-2">
-  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+<h1 class="signup-heading">SIGN UP</h1>
+<div class="form-container col-md-8 col-md-offset-2">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="signup-form">
+    <!-- Campo para o nome -->
     <div class="form-group">
-      <label for="firstName">Nome:</label>
+      <label for="firstName" class="form-label">Nome:</label>
       <input
         type="text"
         id="firstName"
@@ -10,12 +11,15 @@
         formControlName="firstNameTS"
       />
     </div>
+    <!-- Mensagem de erro para o nome obrigatório -->
     @if (myForm.get('firstNameTS')?.errors?.['required'] &&
     myForm.get('firstNameTS')?.touched) {
-    <div><p style="color: red">Nome Obrigatório</p></div>
+    <div><p class="error-message">Nome Obrigatório</p></div>
     }
+
+    <!-- Campo para o sobrenome -->
     <div class="form-group">
-      <label for="lastName">SobreNome:</label>
+      <label for="lastName" class="form-label">Sobrenome:</label>
       <input
         type="text"
         id="lastName"
@@ -23,22 +27,29 @@
         formControlName="lastNameTS"
       />
     </div>
+    <!-- Mensagem de erro para o sobrenome obrigatório -->
     @if (myForm.get('lastNameTS')?.errors?.['required'] &&
     myForm.get('lastNameTS')?.touched) {
-    <div><p style="color: red">SobreNome Obrigatório</p></div>
-    } @if (myForm.get('lastNameTS')?.errors?.['minlength'] &&
+    <div><p class="error-message">Sobrenome Obrigatório</p></div>
+    }
+    <!-- Mensagem de erro para o sobrenome com menos de 4 caracteres -->
+    @if (myForm.get('lastNameTS')?.errors?.['minlength'] &&
     myForm.get('lastNameTS')?.touched) {
     <div>
-      <p style="color: red">SobreNome deve ter no mínimo 4 caracteres</p>
-    </div>
-    } @if (myForm.get('lastNameTS')?.errors?.['maxlength'] &&
-    myForm.get('lastNameTS')?.touched) {
-    <div>
-      <p style="color: red">SobreNome deve ter no máximo 16 caracteres</p>
+      <p class="error-message">Sobrenome deve ter no mínimo 4 caracteres</p>
     </div>
     }
+    <!-- Mensagem de erro para o sobrenome com mais de 16 caracteres -->
+    @if (myForm.get('lastNameTS')?.errors?.['maxlength'] &&
+    myForm.get('lastNameTS')?.touched) {
+    <div>
+      <p class="error-message">Sobrenome deve ter no máximo 16 caracteres</p>
+    </div>
+    }
+
+    <!-- Campo para o email -->
     <div class="form-group">
-      <label for="email">Email:</label>
+      <label for="email" class="form-label">Email:</label>
       <input
         type="email"
         id="email"
@@ -46,15 +57,20 @@
         formControlName="emailTS"
       />
     </div>
+    <!-- Mensagem de erro para o email obrigatório -->
     @if (myForm.get('emailTS')?.errors?.['required'] &&
     myForm.get('emailTS')?.touched) {
-    <div><p style="color: red">E-mail Obrigatório</p></div>
-    } @if (myForm.get('emailTS')?.errors?.['pattern'] &&
-    myForm.get('emailTS')?.touched) {
-    <div><p style="color: red">E-mail Inválido</p></div>
+    <div><p class="error-message">E-mail Obrigatório</p></div>
     }
+    <!-- Mensagem de erro para o email com formato inválido -->
+    @if (myForm.get('emailTS')?.errors?.['pattern'] &&
+    myForm.get('emailTS')?.touched) {
+    <div><p class="error-message">E-mail Inválido</p></div>
+    }
+
+    <!-- Campo para a senha -->
     <div class="form-group">
-      <label for="pass">Senha:</label>
+      <label for="pass" class="form-label">Senha:</label>
       <input
         type="password"
         id="pass"
@@ -62,31 +78,34 @@
         formControlName="passwordTS"
       />
     </div>
+    <!-- Mensagem de erro para a senha obrigatória -->
     @if (myForm.get('passwordTS')?.errors?.['required'] &&
     myForm.get('passwordTS')?.touched) {
-    <div><p style="color: red">Senha Obrigatória</p></div>
+    <div><p class="error-message">Senha Obrigatória</p></div>
     }
-    <!-- Combobox -->
-  <label for="countryTS">País:</label>
-  <select id="countryTS" formControlName="countryTS">
-    <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
-  </select>  
 
-  <!-- Radio -->
-  <div>
-    <label for="maleRadio">Masculino:</label>
-    <input type="radio" id="maleRadio" name="genderTS" value="male" formControlName="genderTS">
-    
-    <label for="femaleRadio">Feminino:</label>
-    <input type="radio" id="femaleRadio" name="genderTS" value="female" formControlName="genderTS">
-  </div>
+    <!-- Combobox para selecionar o país -->
+    <label for="countryTS" class="form-label">País:</label>
+    <select id="countryTS" formControlName="countryTS" class="form-control">
+      <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+    </select>  
 
-  <!-- Checkbox -->
-  <div>
-    <label for="acceptTermsTS">Aceitar termos:</label>
-    <input type="checkbox" id="acceptTermsTS" formControlName="acceptTermsTS">
-  </div>
+    <!-- Radio buttons para selecionar o gênero -->
+    <div>
+      <label for="maleRadio" class="form-label">Masculino:</label>
+      <input type="radio" id="maleRadio" name="genderTS" value="male" formControlName="genderTS">
+      
+      <label for="femaleRadio" class="form-label">Feminino:</label>
+      <input type="radio" id="femaleRadio" name="genderTS" value="female" formControlName="genderTS">
+    </div>
+
+    <!-- Checkbox para aceitar termos -->
+    <div>
+      <label for="acceptTermsTS" class="form-label">Aceitar termos:</label>
+      <input type="checkbox" id="acceptTermsTS" formControlName="acceptTermsTS">
+    </div>
     <br />
+    <!-- Botão de cadastro -->
     <button class="btn btn-primary" type="submit" [disabled]="!myForm.valid">
       Cadastrar
     </button>
