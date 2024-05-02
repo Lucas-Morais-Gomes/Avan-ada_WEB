@@ -10,5 +10,3 @@ const Userschema = new Schema({
 });
 
 module.exports = mongoose.model('User', Userschema);
-
-// , unique: true

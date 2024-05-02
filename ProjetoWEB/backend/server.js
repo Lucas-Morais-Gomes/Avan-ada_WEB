@@ -1,12 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-var routes = require('./routes/routes');
-
-app.listen(9002, function check(err) {
-  if (err) console.log('error');
-  else console.log('started');
-});
+const router = require('./routes/app'); // Importe o roteador principal
 
 // Conexão com o MongoDB
 mongoose
@@ -18,5 +13,16 @@ mongoose
     console.error('Erro na conexão com o MongoDB:', error);
   });
 
-app.use(express.json());
-app.use(routes);
+// Use o roteador principal
+app.use(router);
+
+// Vincule o roteador de usuários ao prefixo '/user'
+app.use("/user", require("./routes/users"));
+
+// Porta em que o servidor vai ouvir
+const PORT = 3000;
+
+// Iniciar o servidor
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});

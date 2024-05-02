@@ -1,18 +1,14 @@
 export class Message {
-    messageId: string;
+    _id: string; // Propriedade _id para armazenar o identificador único gerado pelo MongoDB
     content: string;
     userId?: string;
     username: string;
     
     constructor(content: string, username: string, userId?: string) {
-        this.messageId = this.generateId(); // Gera um ID automaticamente ao criar uma nova mensagem
+        // Não é necessário gerar manualmente o _id, pois o MongoDB o fará automaticamente
+        this._id = ''; // Inicialize com uma string vazia por padrão
         this.content = content;
         this.userId = userId;
         this.username = username;
-    }
-
-    private generateId(): string {
-        // Lógica para gerar um ID único, por exemplo:
-        return 'msg_' + Math.random().toString(36).substr(2, 9);
     }
 }

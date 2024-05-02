@@ -1,69 +1,67 @@
-import { inject, Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable, catchError, map } from "rxjs";
-import { Message } from "./message.model";
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { Message } from './message.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MessageService {
-  private baseUrl = "http://localhost:3000";
-
+  private baseUrl = 'http://localhost:3000/message';
   private messageSService: Message[] = [];
 
-  errorHandler(e: any, info: string): Observable<any> {
-    throw {
-      info_extra: info,
-      error_SS: e, //pega o server-side error
-      error_CS: "Client-Side: errorHandler : Ocorreu um erro!", //Pega o client-side error
-    };
+
+  constructor(private http: HttpClient) { }
+
+  errorHandler(error: any, info: string) {
+    console.error(`Erro: ${info}`, error);
+    return throwError(`Erro: ${info}`);
   }
 
-  //constructor(private:httpClient) {}
-  private http = inject(HttpClient);
-
-  addMessage(message: Message) {
+  addMessage(message: Message): Observable<any> {
     this.messageSService.push(message);
     console.log(this.messageSService);
 
-    return this.http
-      .post<any>(`${this.baseUrl}/message`, message)
-      .pipe(catchError((e) => this.errorHandler(e, "addMessage()")));
-  }
-
-  deleteMessage(message: Message) {
-    this.messageSService.splice(this.messageSService.indexOf(message), 1);
-  }
-
-  getMessages() {
-    // return this.messageSService;
-
-    return this.http.get<any>(`${this.baseUrl}/message`).pipe(
-      map((responseRecebida: any) => {
-        console.log(responseRecebida);
-        console.log({content: responseRecebida.objSMessageSRecuperadoS[0].content});
-        console.log({ _id: responseRecebida.objSMessageSRecuperadoS[0]._id });
-
-        const messageSResponseRecebida =
-          responseRecebida.objSMessageSRecuperadoS;
-
-        let transformedCastMessageModelFrontend: Message[] = [];
-        for (let msg of messageSResponseRecebida) {
-          transformedCastMessageModelFrontend.push(
-            new Message(msg.content, "Lucas", msg._id)
-          );
-        }
-        this.messageSService = [...transformedCastMessageModelFrontend];
-        responseRecebida.objSMessageSRecuperadoS = this.messageSService;
-
-        console.log({ myMsgSucesso: responseRecebida.myMsgSucesso });
-        console.log({
-          content: responseRecebida.objSMessageSRecuperadoS[0].content});
-        console.log({
-          id: responseRecebida.objSMessageSRecuperadoS[0].messageId,
-        });
-
-        return responseRecebida;
-      }),
-      catchError((e) => this.errorHandler(e, "getMessages()"))
+    return this.http.post<any>(`${this.baseUrl}`, message).pipe(
+      catchError(error => this.errorHandler(error, 'Erro ao adicionar mensagem'))
     );
   }
+
+  deleteMessage(messageId: any) {
+    return this.http.delete(`${this.baseUrl}/${messageId}`);
+  }
+  
+  getMessages(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}`).pipe(
+      map(response => {
+        console.log(response);
+
+        const messagesResponse = response.objSMessageSRecuperadoS;
+
+        let transformedMessages: Message[] = [];
+        for (let msg of messagesResponse) {
+          transformedMessages.push(new Message(msg.content, 'Lucas', msg._id));
+        }
+        this.messageSService = transformedMessages;
+
+        console.log('Mensagens recuperadas:', this.messageSService);
+
+        return response;
+      }),
+      catchError(error => this.errorHandler(error, 'Erro ao recuperar mensagens'))
+    );
+  }
+
+  // Método para atualizar uma mensagem
+  updateMessage(messageId: any, updatedMessage: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${messageId}`, updatedMessage)
+      .pipe(
+        catchError(error => {
+          console.error('Erro ao atualizar mensagem no servidor:', error);
+          return throwError(error);
+        })
+      );
+  }  
+  
 }

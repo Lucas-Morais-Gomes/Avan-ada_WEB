@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { MessageListComponent } from "./message-list.component";
-import { MessageInputComponent } from "./message-input.component";
+import { MessageListComponent } from "./message-list.component/message-list.component";
+import { MessageInputComponent } from "./message-input.component/message-input.component";
 
 
 @Component({

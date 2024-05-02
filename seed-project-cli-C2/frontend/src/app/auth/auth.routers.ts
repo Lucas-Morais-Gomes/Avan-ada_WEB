@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
-import { SignupComponent } from "./signup.component";
-import { SigninComponent } from "./signin.component";
+import { SignupComponent } from "./signup.component/signup.component";
+import { SigninComponent } from "./signin.component/signin.component";
 import { LogoutComponent } from "./logout.component";
 
 /*

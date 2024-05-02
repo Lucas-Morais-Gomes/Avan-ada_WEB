@@ -1,0 +1,26 @@
+<article class="panel panel-default">
+    <div class="panel-body">
+      {{ messageVarClasse.content }}
+    </div>
+    <footer class="panel-footer">
+      <div class="author">
+        {{ messageVarClasse.username }}
+      </div>
+      <div class="config">
+        <!-- <button (click)="openEditModal()">Edit</button> -->
+        <button (click)="onDelete($event, messageVarClasse._id)">Delete</button>
+      </div>
+    </footer>
+  </article>
+  
+  <div class="modal" [ngClass]="{ 'is-active': editModalActive }">
+    <!-- <div class="modal-background" (click)="closeEditModal()"></div> -->
+    <div class="modal-content">
+      <div class="box">
+        <textarea [(ngModel)]="editedMessageContent"></textarea>
+        <button class="button is-success" (click)="onSave(messageVarClasse._id)">Salvar</button>
+        <!-- <button class="button" (click)="closeEditModal()">Cancelar</button> -->
+      </div>
+    </div>
+    <!-- <button class="modal-close is-large" aria-label="close" (click)="closeEditModal()">Close</button> -->
+  </div>
