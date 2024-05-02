@@ -32,10 +32,10 @@ export class MessageInputComponent implements OnInit {
     // Função chamada quando o formulário é enviado
     console.log("MessageInputComponet: ");
     console.log(form.value);
-    const messageAux = new Message(
-      form.value.myContentngForm,
-      "Iago, Luiz, Nikolas"
-    ); // Cria uma nova mensagem com o conteúdo do formulário
+    const messageAux = {
+      content: form.value.myContent,
+      userId: form.value.autor,
+    }; // Cria uma nova mensagem com o conteúdo do formulário
 
     this.messageService
       .addMessage({
@@ -57,12 +57,5 @@ export class MessageInputComponent implements OnInit {
         },
       });
     form.resetForm(); // Reseta o formulário
-  }
-
-  onSave(textoConsole: string) {
-    // Função chamada para salvar uma mensagem
-    const messageAux = new Message(textoConsole, "Iago, Luiz, Nikolas"); // Cria uma nova mensagem
-    // this.messageService.addMessage(messageAux); // Chama o método addMessage do serviço de mensagem
-    console.log(textoConsole); // Exibe o conteúdo da mensagem no console
   }
 }

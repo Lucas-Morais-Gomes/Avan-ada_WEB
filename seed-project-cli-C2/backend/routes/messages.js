@@ -1,6 +1,6 @@
 var express = require("express"); // Importa o pacote Express
 var router = express.Router(); // Cria um objeto de roteamento do Express
-
+const User = require("../models/user"); // Importa o modelo de usuário
 const Message = require("../models/message"); // Importa o modelo de mensagem
 
 router.get("/", (req, res, next) => {
@@ -10,9 +10,14 @@ router.get("/", (req, res, next) => {
 
 // Rota para adicionar uma mensagem
 router.post("/", async function (req, res, next) {
+  const usersEncontrados = await User.findById(req.body.user);
+
+  console.log(usersEncontrados);
+
   const messageObject = new Message({
     user: req.body.user,
-    content: req.body.content, // Obtém o conteúdo da mensagem do corpo da requisição
+    content: req.body.content,
+    username: usersEncontrados.firstName + " " + usersEncontrados.lastName, // Obtém o conteúdo da mensagem do corpo da requisição
   });
   try {
     const messageSave = await messageObject.save(); // Salva a mensagem no banco de dados
@@ -31,8 +36,11 @@ router.post("/", async function (req, res, next) {
 });
 
 // Rota para recuperar todas as mensagens
-router.get("/", async function (req, res, next) {
+router.get("/getMessages", async function (req, res, next) {
   try {
+    const usersEncontrados = await User.findById(req.body.user);
+
+    console.log(usersEncontrados);
     const messageFindTodos = await Message.find({}); // Encontra todas as mensagens no banco de dados
 
     res.status(200).json({

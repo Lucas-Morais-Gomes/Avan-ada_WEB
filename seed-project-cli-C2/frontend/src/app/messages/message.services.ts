@@ -21,7 +21,7 @@ export class MessageService {
 
   // Adiciona uma nova mensagem
   addMessage(data: { user: string; content: string }): Observable<any> {
-    // this.messageSService.push(data); // Adiciona a mensagem localmente
+    this.messageSService.push(data); // Adiciona a mensagem localmente
     console.log(this.messageSService); // Registra a mensagem no console
 
     return this.http.post<any>(`${this.baseUrl}`, data).pipe(
@@ -39,22 +39,10 @@ export class MessageService {
 
   // Obtém todas as mensagens do backend
   getMessages(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}`).pipe(
+    return this.http.get<any>(`${this.baseUrl}/getMessages`).pipe(
       // Envia uma solicitação GET para obter todas as mensagens do backend
       map((response) => {
-        console.log(response); // Registra a resposta no console
-
-        const messagesResponse = response.objSMessageSRecuperadoS; // Extrai as mensagens da resposta
-
-        let transformedMessages: Message[] = []; // Inicializa uma matriz para armazenar as mensagens transformadas
-        for (let msg of messagesResponse) {
-          transformedMessages.push(new Message(msg.content, "Lucas", msg._id)); // Transforma os dados em instâncias de Message e as armazena na matriz
-        }
-        this.messageSService = transformedMessages; // Armazena as mensagens localmente
-
-        console.log("Mensagens recuperadas:", this.messageSService); // Registra as mensagens recuperadas no console
-
-        return response; // Retorna a resposta
+        return response.objSMessageSRecuperadoS;
       }),
       catchError((error) =>
         this.errorHandler(error, "Erro ao recuperar mensagens")
