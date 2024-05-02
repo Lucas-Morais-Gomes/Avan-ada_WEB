@@ -18,13 +18,11 @@ export class MessageInputComponent implements OnInit {
   users$: Observable<any> = of([]);
 
   ngOnInit() {
-    // this.users$ = this.userService.getAllUsers();
     this.users$.subscribe(console.log);
   }
 
   constructor() {
     this.users$ = this.userService.getAllUsers();
-    // .pipe(map((response: any) => response.users));
   }
   private messageService = inject(MessageService); // Injeta o serviço de mensagem
   private userService = inject(UserService);
