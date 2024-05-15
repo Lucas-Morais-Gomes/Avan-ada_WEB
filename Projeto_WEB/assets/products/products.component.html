@@ -1,0 +1,40 @@
+<div class="container mt-4">
+    <div class="card">
+      <h1>Cadastro de Matéria</h1>
+      <form>
+        <div class="form-group">
+          <label>Nome</label>
+          <input type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" class="form-control" id="name"
+            placeholder="Informe o nome">
+        </div>
+        <div class="form-group">
+          <label>Área</label>
+          <input type="text" class="form-control" [(ngModel)]="field" [ngModelOptions]="{standalone: true}" id="field"
+            placeholder="Informe a área">
+        </div>
+        <button type="submit" (click)="save()" class="btn btn-primary">Cadastrar matéria</button>
+      </form>
+    </div>
+  </div>
+  <div class="container mt-4">
+    <h1>Tabela de Matérias</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">Área</th>
+          <th scope="col">Opções</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let productsItem of productsArray">
+          <td class="bold-name">{{ productsItem.name | uppercase }}</td>
+          <td>{{ productsItem.field }}</td>
+          <td>
+            <button type="button" class="btn btn-success" (click)="setUpdate(productsItem)">Editar</button>
+            <button type="button" class="btn btn-danger" (click)="setDelete(productsItem)">Deletar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
