@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <div class="card">
+      <h1>Cadastro de Produto</h1> <!-- Alteração aqui: Renomear para "Cadastro de Produto" -->
+      <form>
+          <div class="form-group">
+              <label>Nome</label>
+              <input type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" class="form-control" id="name"
+                  placeholder="Informe o nome">
+          </div>
+          <div class="form-group">
+              <label>Área</label>
+              <input type="text" class="form-control" [(ngModel)]="area" [ngModelOptions]="{standalone: true}" id="area"
+                  placeholder="Informe a área">
+          </div>
+          <button type="submit" (click)="save()" class="btn btn-primary">Cadastrar produto</button> <!-- Alteração aqui: Renomear para "Cadastrar produto" -->
+      </form>
+  </div>
+</div>
+<div class="container mt-4">
+  <h1>Tabela de Produtos</h1> <!-- Alteração aqui: Renomear para "Tabela de Produtos" -->
+  <table class="table">
+      <thead>
+          <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Área</th>
+              <th scope="col">Opções</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let ProductItem of ProductArray"> <!-- Alteração aqui: Renomear de SubjectArray para ProductArray -->
+              <td class="bold-name">{{ ProductItem.name | uppercase }}</td>
+              <td>{{ ProductItem.area }}</td>
+              <td>
+                  <button type="button" class="btn btn-success" (click)="setUpdate(ProductItem)">Editar</button>
+                  <button type="button" class="btn btn-danger" (click)="setDelete(ProductItem)">Deletar</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>

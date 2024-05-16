@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var subjectModel = require('../subject/subjectModel');
+const Schema = mongoose.Schema;
+const productModel = require('../product/productModel'); // Alteração aqui: Importar o modelo do produto corretamente
 
-var mentorSchema = new Schema({
+const mentorSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -18,10 +18,10 @@ var mentorSchema = new Schema({
         required: true
     },
 
-    subject: {
+    product: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: subjectModel
+        ref: 'Product' // Alteração aqui: Corrigir a referência ao modelo do produto
     }
 });
 

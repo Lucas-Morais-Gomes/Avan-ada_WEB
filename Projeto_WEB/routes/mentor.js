@@ -20,7 +20,7 @@ router.post('/', async function (req, res, next) {
 router.get('/', async(req,res)=>{
    
     try{
-        const mentors = await mentorModel.find().populate('subject', 'name');
+        const mentors = await mentorModel.find().populate('product', 'name'); // Alteração aqui: Mudar para 'product' em vez de 'subject'
         res.send(mentors);
     }
     catch(error)

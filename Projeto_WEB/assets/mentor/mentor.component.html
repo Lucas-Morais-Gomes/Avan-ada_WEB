@@ -18,9 +18,9 @@
                     id="phone" placeholder="Informe o número">
             </div>
             <div class="form-group">
-                <label>Matéria:</label>
-                <select id="subject" [(ngModel)]="subject" name="subject" [ngModelOptions]="{standalone: true}" required>
-                  <option *ngFor="let subject of SubjectArray" [value]="subject._id">{{ subject.name }}</option>
+                <label>Produto:</label> <!-- Alteração aqui: Altere o rótulo para "Produto" -->
+                <select id="product" [(ngModel)]="product" name="product" [ngModelOptions]="{standalone: true}" required>
+                  <option *ngFor="let product of ProductArray" [value]="product._id">{{ product.name }}</option> <!-- Alteração aqui: Substitua SubjectArray por ProductArray -->
                 </select>
             </div>
             <button type="submit" (click)="save()" class="btn btn-primary">Cadastrar mentor</button>
@@ -35,7 +35,7 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Endereço</th>
                 <th scope="col">Telefone</th>
-                <th scope="col">Matéria</th>
+                <th scope="col">Produto</th> <!-- Alteração aqui: Altere o cabeçalho para "Produto" -->
                 <th scope="col">Opções</th>
             </tr>
         </thead>
@@ -44,7 +44,8 @@
                 <td class="bold-name">{{ MentorItem.name | uppercase }}</td>
                 <td>{{ MentorItem.address }}</td>
                 <td>{{ MentorItem.phone }}</td>
-                <td>{{ MentorItem.subject.name }}</td>
+                <!-- Alteração aqui: Exibir o nome do produto associado ao mentor -->
+                <td>{{ MentorItem.product.name }}</td>
                 <td>
                     <button type="button" class="btn btn-success" (click)="setUpdate(MentorItem)">Editar</button>
                     <button type="button" class="btn btn-danger" (click)="setDelete(MentorItem)">Deletar</button>

@@ -9,10 +9,17 @@ var mongoose = require('mongoose');
 var appRoutes = require('./routes/app');
 var studentRoutes = require('./routes/student')
 var mentorRoutes = require('./routes/mentor');
-var subjectRoutes = require('./routes/products');
+// Alteração aqui: Renomear subjectRoutes para productRoutes
+var productRoutes = require('./routes/product');
 
 var app = express();
-mongoose.connect('mongodb://127.0.0.1:27017/node-angular-dois');
+mongoose.connect('mongodb://127.0.0.1:27017/node-angular-dois')
+  .then(() => {
+    console.log('Conexão com o MongoDB estabelecida com sucesso.');
+  })
+  .catch((error) => {
+    console.error('Erro na conexão com o MongoDB:', error); 
+  });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,9 +40,10 @@ app.use(function (req, res, next) {
     next();
 });
 
+// Alteração aqui: Substitua /subject por /product
 app.use('/students', studentRoutes);
 app.use('/mentors', mentorRoutes);
-app.use('/products', subjectRoutes);
+app.use('/products', productRoutes); // Alteração aqui: Usar productRoutes em vez de subjectRoutes
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
@@ -43,4 +51,4 @@ app.use(function (req, res, next) {
     return res.render('index');
 });
 
-module.exports = app; 
+module.exports = app;

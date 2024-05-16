@@ -1,33 +1,34 @@
 import { NgModule } from '@angular/core'; 
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppComponent } from "./app.component";
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { StudentComponent } from '../student/student.component';
-import { RouterOutlet } from '@angular/router';
-import { HttpModule } from '@angular/http';
-import { HeaderComponent } from '../header/header.component';
-import { MentorComponent } from '../mentor/mentor.component';
-import { myrouting } from './app.routing';
-import { StudentService } from '../../services/student.service';
-import { SubjectComponent } from '../subject/subject.component';
-import { SubjectService } from '../../services/subject.service';
-import { MentorService } from '../../services/mentor.service';
 
+import { AppComponent } from './app.component';
+import { HeaderComponent } from '../header/header.component';
+import { StudentComponent } from '../student/student.component';
+import { MentorComponent } from '../mentor/mentor.component';
+import { ProductComponent } from '../product/product.component';
+import { myrouting } from './app.routing'; // Importe o arquivo de rotas
+
+import { StudentService } from '../../services/student.service';
+import { MentorService } from '../../services/mentor.service';
+import { ProductService } from '../../services/product.service';
 
 @NgModule({
     declarations: [
         AppComponent,
-        StudentComponent,
         HeaderComponent,
+        StudentComponent,
         MentorComponent,
-        SubjectComponent
+        ProductComponent
     ],
-    imports: [BrowserModule, FormsModule, HttpClientModule, myrouting],
-    providers: [StudentService, MentorService, SubjectService],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        myrouting // Adicione o RouterModule com as rotas
+    ],
+    providers: [StudentService, MentorService, ProductService],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-
-}
+export class AppModule {}
