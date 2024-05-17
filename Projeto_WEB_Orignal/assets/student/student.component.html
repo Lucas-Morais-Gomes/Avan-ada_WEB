@@ -1,0 +1,55 @@
+<div class="container mt-4">
+  <div class="card">
+    <h1>Cadastro de Estudante</h1>
+    <form>
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" class="form-control" id="name"
+          placeholder="Informe o nome">
+      </div>
+      <div class="form-group">
+        <label>Endereço</label>
+        <input type="text" class="form-control" [(ngModel)]="address" [ngModelOptions]="{standalone: true}" id="address"
+          placeholder="Informe o endereço">
+      </div>
+      <div class="form-group">
+        <label>Telefone</label>
+        <input type="text" class="form-control" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" id="phone"
+          placeholder="Informe o número">
+      </div>
+      <div class="form-group">
+        <label>Mentor:</label>
+        <select id="mentor" [(ngModel)]="mentor" name="mentor" [ngModelOptions]="{standalone: true}" required>
+          <option *ngFor="let mentor of MentorArray" [value]="mentor._id">{{ mentor.name }}</option>
+        </select>
+      </div>
+      <button type="submit" (click)="save()" class="btn btn-primary">Cadastrar aluno</button>
+    </form>
+  </div>
+</div>
+<div class="container mt-4">
+  <h1>Tabela de Estudantes</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Endereço</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Mentor</th>
+        <th scope="col">Opções</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let StudentItem of StudentArray">
+        <td class="bold-name">{{ StudentItem.name | uppercase }}</td>
+        <td>{{ StudentItem.address }}</td>
+        <td>{{ StudentItem.phone }}</td>
+        <td>{{ StudentItem.mentor.name }}</td>
+        <td>
+          <button type="button" class="btn btn-success" (click)="setUpdate(StudentItem)">Editar</button>
+          <button type="button" class="btn btn-danger" (click)="setDelete(StudentItem)">Deletar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

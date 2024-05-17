@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "build": "del-cli public/js/app && webpack --config webpack.config.dev.js --progress --profile --watch",
-    "build:prod": "del-cli public/js/app && ngc -p tsconfig.aot.json && ngc -p tsconfig.aot.json && webpack --config webpack.config.prod.js --progress --profile --bail && del-cli 'assets/app/**/*.js' 'assets/app/**/*.ngsummary.json' 'assets/app/**/*.ngstyle.*'"
+    "build:prod": "del-cli public/js/app && ngc -p tsconfig.aot.json && ngc -p tsconfig.aot.json && webpack --config webpack.config.prod.js --progress --profile --bail && del-cli 'assets/app/**/*.js' 'assets/app/**/*.ngsummary.json' 'assets/app/**/*.ngstyle.*'",
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "@angular/animations": "^17.3.9",
@@ -34,6 +35,7 @@
     "zone.js": "^0.8.5"
   },
   "devDependencies": {
+    "nodemon": "^2.0.0",
     "@ngtools/webpack": "^1.8.0",
     "@types/core-js": "0.9.36",
     "@types/node": "^6.0.45",
