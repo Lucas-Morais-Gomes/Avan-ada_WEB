@@ -1,0 +1,55 @@
+<div class="container mt-4">
+  <div class="card">
+    <h1>Cadastro de Pedido</h1>
+    <form>
+      <div class="form-group">
+        <label>Nome do cliente</label>
+        <input type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" class="form-control" id="name"
+          placeholder="Informe o nome">
+      </div>
+      <div class="form-group">
+        <label>Endereço</label>
+        <input type="text" class="form-control" [(ngModel)]="address" [ngModelOptions]="{standalone: true}" id="address"
+          placeholder="Informe o endereço">
+      </div>
+      <div class="form-group">
+        <label>Telefone</label>
+        <input type="text" class="form-control" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" id="phone"
+          placeholder="Informe o número">
+      </div>
+      <div class="form-group">
+        <label>Produto:</label>
+        <select id="produto" [(ngModel)]="produto" name="produto" [ngModelOptions]="{standalone: true}" required>
+          <option *ngFor="let produto of ProdutoArray" [value]="produto._id">{{ produto.name }}</option>
+        </select>
+      </div>
+      <button type="submit" (click)="save()" class="btn btn-primary">Cadastrar Pedido</button>
+    </form>
+  </div>
+</div>
+<div class="container mt-4">
+  <h1>Tabela de Pedidos</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome do cliente</th>
+        <th scope="col">Endereço</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Produto</th>
+        <th scope="col">Opções</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let PedidoItem of PedidoArray">
+        <td class="bold-name">{{ PedidoItem.name | uppercase }}</td>
+        <td>{{ PedidoItem.address }}</td>
+        <td>{{ PedidoItem.phone }}</td>
+        <td>{{ PedidoItem.produto.name }}</td>
+        <td>
+          <button type="button" class="btn btn-success" (click)="setUpdate(PedidoItem)">Editar</button>
+          <button type="button" class="btn btn-danger" (click)="setDelete(PedidoItem)">Deletar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

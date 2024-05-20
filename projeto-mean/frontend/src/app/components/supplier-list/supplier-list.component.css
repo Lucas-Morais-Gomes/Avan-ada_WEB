@@ -1,0 +1,31 @@
+/* Estilos para a lista de fornecedores */
+.suppliers-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.supplier-item {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.supplier-item h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.supplier-item p {
+  margin: 0;
+}
+
+.product-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.product-item {
+  margin-bottom: 5px;
+}

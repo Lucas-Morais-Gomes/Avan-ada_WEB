@@ -1,0 +1,19 @@
+<div>
+  <app-supplier-create [addSupplierToList]="addSupplierToList"></app-supplier-create>
+  
+  <h2>Lista de Fornecedores</h2>
+  <ul class="suppliers-list">
+    <li *ngFor="let supplier of suppliers" class="supplier-item">
+      <h3>{{ supplier.name }}</h3>
+      <p><strong>Email:</strong> {{ supplier.email }}</p>
+      <p><strong>CNPJ:</strong> {{ supplier.cnpj }}</p>
+      <p><strong>Telefone:</strong> {{ supplier.phone }}</p>
+      <p><strong>Produtos Fornecidos:</strong></p>
+      <ul class="product-list">
+        <li class="product-item">
+          {{ supplier.product.name }} - {{ supplier.product.type }}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

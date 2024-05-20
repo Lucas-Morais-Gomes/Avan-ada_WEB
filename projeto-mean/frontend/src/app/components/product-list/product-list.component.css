@@ -1,0 +1,31 @@
+/* Estilos para a lista de produtos */
+.product-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.product-item{
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.product-list h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.product-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-list li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}

@@ -1,0 +1,38 @@
+/* styles.css ou outro arquivo de estilo global */
+
+.create-supplier-form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .create-supplier-form h2 {
+    margin-top: 0;
+  }
+  
+  .create-supplier-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .create-supplier-form input,
+  .create-supplier-form select {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .create-supplier-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .create-supplier-form button:hover {
+    background-color: #0056b3;
+  }
+  

@@ -1,0 +1,55 @@
+<div class="container mt-4">
+  <div class="card">
+    <h1>Cadastro de Cliente</h1>
+    <form>
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" class="form-control" id="name"
+          placeholder="Informe o nome">
+      </div>
+      <div class="form-group">
+        <label>Endereço</label>
+        <input type="text" class="form-control" [(ngModel)]="address" [ngModelOptions]="{standalone: true}" id="address"
+          placeholder="Informe o endereço">
+      </div>
+      <div class="form-group">
+        <label>Telefone</label>
+        <input type="text" class="form-control" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" id="phone"
+          placeholder="Informe o número">
+      </div>
+      <!-- <div class="form-group">
+        <label>Fornecedor:</label>
+        <select id="fornecedor" [(ngModel)]="fornecedor" name="fornecedor" [ngModelOptions]="{standalone: true}" required>
+          <option *ngFor="let fornecedor of FornecedorArray" [value]="fornecedor._id">{{ fornecedor.name }}</option>
+        </select>
+      </div> -->
+      <button type="submit" (click)="save()" class="btn btn-primary">Cadastrar Cliente</button>
+    </form>
+  </div>
+</div>
+<div class="container mt-4">
+  <h1>Tabela de Clientes</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Endereço</th>
+        <th scope="col">Telefone</th>
+        <!-- <th scope="col">Fornecedor</th> -->
+        <th scope="col">Opções</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ClienteItem of ClienteArray">
+        <td class="bold-name">{{ ClienteItem.name | uppercase }}</td>
+        <td>{{ ClienteItem.address }}</td>
+        <td>{{ ClienteItem.phone }}</td>
+        <!-- <td>{{ ClienteItem.fornecedor.name }}</td> -->
+        <td>
+          <button type="button" class="btn btn-success" (click)="setUpdate(ClienteItem)">Editar</button>
+          <button type="button" class="btn btn-danger" (click)="setDelete(ClienteItem)">Deletar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,11 @@
+<div class="product-list">
+  <app-product-create [addProductToList]="addProductToList"></app-product-create>
+  
+  <h2>Lista de Produtos</h2>
+
+  <ul>
+    <li *ngFor="let product of products" class="product-item">
+      {{ product.name }} - {{ product.type }}
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,39 @@
+/* styles.css ou outro arquivo de estilo global */
+
+/* Estilos para a navegação */
+.navbar {
+    background-color: #333;
+    padding: 10px 20px;
+  }
+  
+  .navbar-nav {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+  }
+  
+  .nav-item {
+    margin-right: 20px;
+  }
+  
+  .nav-item a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-item a:hover {
+    color: #ff4081;
+  }
+  
+  /* Estilos para a área de saída do roteador */
+  .router-outlet-container {
+    padding: 20px;
+  }
+  
+  /* Estilos para a classe 'active' que é aplicada ao link ativo */
+  .router-link-active {
+    font-weight: bold;
+  }
+  

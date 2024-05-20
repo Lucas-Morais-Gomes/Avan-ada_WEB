@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <div class="card">
+    <h1>Cadastro de Produto</h1>
+    <form>
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" class="form-control" id="name"
+          placeholder="Informe o nome">
+      </div>
+      <div class="form-group">
+        <label>Caracteristica</label>
+        <input type="text" class="form-control" [(ngModel)]="field" [ngModelOptions]="{standalone: true}" id="field"
+          placeholder="Informe a área">
+      </div>
+      <div class="form-group">
+        <label>Fornecedor:</label>
+        <select id="fornecedor" [(ngModel)]="fornecedor" name="fornecedor" [ngModelOptions]="{standalone: true}" required>
+          <option *ngFor="let fornecedor of FornecedorArray" [value]="fornecedor._id">{{ fornecedor.name }}</option>
+        </select>
+    </div>
+      <button type="submit" (click)="save()" class="btn btn-primary">Cadastrar Produto</button>
+    </form>
+  </div>
+</div>
+<div class="container mt-4">
+  <h1>Tabela de Produtos</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Caracteristica</th>
+        <th scope="col">Opções</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ProdutoItem of ProdutoArray">
+        <td class="bold-name">{{ ProdutoItem.name | uppercase }}</td>
+        <td>{{ ProdutoItem.field }}</td> 
+        <td>
+          <button type="button" class="btn btn-success" (click)="setUpdate(ProdutoItem)">Editar</button>
+          <button type="button" class="btn btn-danger" (click)="setDelete(ProdutoItem)">Deletar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

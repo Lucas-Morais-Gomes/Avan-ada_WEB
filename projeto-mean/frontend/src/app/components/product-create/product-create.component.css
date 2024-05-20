@@ -1,0 +1,43 @@
+/* Estilos para o formulário de criação de produto */
+
+.product-form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+.product-form form {
+    display: flex;
+    flex-direction: column;
+}
+  
+  .product-form h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .product-form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .product-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .product-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .product-form button:hover {
+    background-color: #0056b3;
+  }
+  

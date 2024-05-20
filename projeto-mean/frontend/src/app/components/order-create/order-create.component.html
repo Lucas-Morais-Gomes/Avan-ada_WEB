@@ -1,0 +1,30 @@
+<div class="order-form">
+  <h1>Criar Pedido</h1>
+  <form (ngSubmit)="createOrder()">
+    <label>
+      Nome:
+      <input type="text" [(ngModel)]="order.name" name="name" placeholder="Nome" required>
+    </label>
+    <label>
+      E-mail:
+      <input type="email" [(ngModel)]="order.email" name="email" placeholder="Email" required>
+    </label>
+    <label>
+      CPF:
+      <input type="text" [(ngModel)]="order.cpf" name="cpf" placeholder="CPF" required>
+    </label>
+    <label>
+      Produto:
+      <select [(ngModel)]="order.product" name="product" (change)="onProductChange(order.product)">
+        <option *ngFor="let product of products" [value]="product._id">{{ product.name }}</option>
+      </select>
+    </label>
+    <label *ngIf="suppliers.length > 0">
+      Fornecedor:
+      <select [(ngModel)]="order.supplier" name="supplier">
+        <option *ngFor="let supplier of suppliers" [value]="supplier._id">{{ supplier.name }}</option>
+      </select>
+    </label>
+    <button type="submit">Criar</button>
+  </form>
+</div>
