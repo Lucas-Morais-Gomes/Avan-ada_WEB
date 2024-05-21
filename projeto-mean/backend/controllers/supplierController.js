@@ -1,5 +1,6 @@
 const Supplier = require('../models/Supplier');
 const Product = require('../models/Product');
+const Order = require('../models/Order');
 const mongoose = require('mongoose');
 
 // Função para criar um novo fornecedor
@@ -62,5 +63,65 @@ exports.getSuppliersByProduct = async (req, res) => {
     } catch (err) {
         console.error('Erro ao obter fornecedores pelo produto:', err.message);
         res.status(500).json({ message: err.message });
+    }
+};
+
+// Função para atualizar um fornecedor
+exports.updateSupplier = async (req, res) => {
+    console.log('Requisição para atualizar um fornecedor recebida');
+    try {
+        const { id } = req.params;
+        const { name, email, cnpj, phone, product } = req.body;
+        console.log(req.body);
+
+        if (!name || !email || !cnpj || !phone || !product) {
+            console.log('Dados inválidos: todos os campos são obrigatórios');
+            return res.status(400).json({ message: 'Todos os campos são obrigatórios' });
+        }
+
+        const existingProduct = await Product.findById(product);
+        if (!existingProduct) {
+            console.log('Produto não encontrado');
+            return res.status(404).json({ message: 'Produto não encontrado' });
+        }
+
+        const updatedSupplier = await Supplier.findByIdAndUpdate(id, { name, email, cnpj, phone, product }, { new: true });
+        if (!updatedSupplier) {
+            console.log('Fornecedor não encontrado');
+            return res.status(404).json({ message: 'Fornecedor não encontrado' });
+        }
+
+        console.log('Fornecedor atualizado com sucesso:', updatedSupplier);
+        res.status(200).json(updatedSupplier);
+    } catch (err) {
+        console.error('Erro ao atualizar fornecedor:', err.message);
+        res.status(500).json({ message: err.message });
+    }
+};
+
+// Função para excluir um fornecedor e seus pedidos associados
+exports.deleteSupplier = async (req, res) => {
+    console.log('Requisição para excluir um fornecedor recebida');
+    try {
+        const { id } = req.params;
+
+        // Verificar se o fornecedor existe
+        const existingSupplier = await Supplier.findById(id);
+        if (!existingSupplier) {
+            console.log('Fornecedor não encontrado');
+            return res.status(404).json({ message: 'Fornecedor não encontrado' });
+        }
+
+        // Excluir os pedidos associados ao fornecedor
+        await Order.deleteMany({ supplier: id });
+
+        // Excluir o fornecedor
+        await Supplier.findByIdAndDelete(id);
+
+        console.log('Fornecedor e pedidos associados excluídos com sucesso');
+        return res.status(200).json({ message: 'Fornecedor e pedidos associados excluídos com sucesso' });
+    } catch (err) {
+        console.error('Erro ao excluir fornecedor:', err.message);
+        return res.status(500).json({ message: err.message });
     }
 };

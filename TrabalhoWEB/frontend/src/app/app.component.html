@@ -1,0 +1,47 @@
+<br />
+<div class="container">
+  <div class="row">
+    <app-header></app-header>
+    <br />
+    <!-- <app-messages></app-messages> -->
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- 
+  <p *ngIf="mostrarElemento; then thenBlockMy else elseBlockMy"></p>
+  <ng-template #thenBlockMy><p>{{mostrarElemento}} - Mostrando do Then...</p></ng-template>
+  <ng-template #elseBlockMy><p>{{mostrarElemento}} - Mostrando do Else...</p></ng-template> -->
+
+<!-- <button (click)="onMudaMostrarElemento()"> Click aqui 'com then e else'</button>
+  @if (mostrarElemento) {
+    <p>{{mostrarElemento}} - Mostrando do Then com Control Flow integrado</p>
+
+  } @else {
+    <p>{{mostrarElemento}} - Escondido Then com Control Flow integrado</p>
+  } -->
+
+<!-- <button (click)="valorNgSwitch=1">selecione - 1</button>
+  <button (click)="valorNgSwitch=2">selecione - 2</button>
+  <button (click)="valorNgSwitch=3">selecione - 3</button>
+  <h5>Voce selecionou : {{valorNgSwitch}}</h5>
+
+  <br/> <br/> -->
+
+<!-- <div [ngSwitch] ="valorNgSwitch">
+      <div *ngSwitchCase="1">1. Template - <b>{{valorNgSwitch}}</b> </div>
+      <div *ngSwitchCase="2">2. Template - <b>{{valorNgSwitch}}</b> </div>
+      <div *ngSwitchCase="3">3. Template - <b>{{valorNgSwitch}}</b> </div>
+      <div *ngSwitchDefault> Default Template
+  </div> -->
+
+<!-- @switch (valorNgSwitch) {
+    @case (1) { <div> 1. Template com Control Flow integrado - <b>{{valorNgSwitch}}</b> </div> }
+
+    @case (2) { <div> 2. Template com Control Flow integrado - <b>{{valorNgSwitch}}</b> </div> }
+
+    @case (3) { <div> 3. Template com Control Flow integrado - <b>{{valorNgSwitch}}</b> </div> }
+
+    @default {<div> Default Template com Control Flow integrado</div> }
+  }
+</div> -->

@@ -1,23 +1,40 @@
 <div class="create-supplier-form">
   <h2>Criar Fornecedor</h2>
   
-  <form (submit)="createSupplier()">
-    <!-- Inputs para criar fornecedor -->
-    Nome:
-    <input type="text" [(ngModel)]="supplier.name" name="name" placeholder="Nome" required><br>
-    Email:
-    <input type="email" [(ngModel)]="supplier.email" name="email" placeholder="Email" required><br>
-    CNPJ:
-    <input type="text" [(ngModel)]="supplier.cnpj" name="cnpj" placeholder="CNPJ" pattern="[0-9]{2}\.[0-9]{3}\.[0-9]{3}/[0-9]{4}-[0-9]{2}" required><br>
-    Telefone:
-    <input type="text" [(ngModel)]="supplier.phone" name="phone" placeholder="Telefone" required><br>
+  <form [formGroup]="supplierForm" (ngSubmit)="createSupplier()">
 
-    <!-- Selecionar produtos -->
+    Nome:
+    <input type="text" id="name" formControlName="name" placeholder="Nome" required>
+    <div *ngIf="supplierForm.get('name')?.touched && supplierForm.get('name')?.invalid">
+      <p class="error-message">Nome é Obrigatório</p>
+    </div><br>
+
+    Email:
+    <input type="email" id="email" formControlName="email" placeholder="Email" required>
+    <div *ngIf="supplierForm.get('email')?.touched && supplierForm.get('email')?.invalid">
+      <p class="error-message" *ngIf="supplierForm.get('email')?.errors?.['required']">E-mail é Obrigatório</p>
+      <p class="error-message" *ngIf="supplierForm.get('email')?.errors?.['pattern']">E-mail Inválido</p>
+    </div><br>
+
+    CNPJ:
+    <input type="text" id="cnpj" formControlName="cnpj" placeholder="CNPJ" required>
+    <div *ngIf="supplierForm.get('cnpj')?.touched && supplierForm.get('cnpj')?.invalid">
+      <p class="error-message" *ngIf="supplierForm.get('cnpj')?.errors?.['required']">CNPJ é Obrigatório</p>
+      <p class="error-message" *ngIf="supplierForm.get('cnpj')?.errors?.['pattern']">CNPJ Inválido: deve estar no formato xx.xxx.xxx/xxxx-xx</p>
+    </div><br>
+
+    Telefone:
+    <input type="text" id="phone" formControlName="phone" placeholder="Telefone" required>
+    <div *ngIf="supplierForm.get('phone')?.touched && supplierForm.get('phone')?.invalid">
+      <p class="error-message" *ngIf="supplierForm.get('phone')?.errors?.['required']">Telefone é Obrigatório</p>
+      <p class="error-message" *ngIf="supplierForm.get('phone')?.errors?.['pattern']">Telefone Inválido: deve estar no formato (xx) xxxx-xxxx ou (xx) xxxxx-xxxx</p>
+    </div><br>
+
     Produto:
-    <select [(ngModel)]="supplier.product" name="product" required>
+    <select id="product" formControlName="product" required>
       <option *ngFor="let product of products" [ngValue]="product">{{ product.name }}</option>
     </select><br>
 
-    <button type="submit">Criar Fornecedor</button>
+    <button type="submit" [disabled]="supplierForm.invalid">Criar Fornecedor</button>
   </form>
 </div>

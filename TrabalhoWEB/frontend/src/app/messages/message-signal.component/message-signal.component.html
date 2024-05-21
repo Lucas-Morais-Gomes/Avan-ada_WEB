@@ -1,0 +1,23 @@
+<article class="panel panel-default"> <!-- Painel de mensagem -->
+  <div class="panel-body"> <!-- Corpo do painel -->
+    {{ messageVarClasse.content }} <!-- Conteúdo da mensagem -->
+  </div>
+  <footer class="panel-footer"> <!-- Rodapé do painel -->
+    <div class="author"> <!-- Autor da mensagem -->
+      {{ messageVarClasse.username }} <!-- Nome de usuário do autor -->
+    </div>
+    <div class="config"> <!-- Configurações da mensagem -->
+      <button (click)="onDelete($event, messageVarClasse._id)" class="delete-btn">Delete</button> <!-- Botão de exclusão da mensagem -->
+      <button (click)="openEditModal()" class="edit-btn">Editar</button> <!-- Botão de edição da mensagem -->
+    </div>
+  </footer>
+</article>
+
+<div class="modal" [ngClass]="{ 'is-active': editModalActive }"> <!-- Modal de edição -->
+  <div class="modal-content"> <!-- Conteúdo do modal -->
+    <div class="box"> <!-- Caixa de edição -->
+      <textarea [(ngModel)]="editedMessageContent" class="edit-textarea"></textarea> <!-- Textarea para editar o conteúdo da mensagem -->
+      <button class="button is-success" (click)="onSave(messageVarClasse._id)">Salvar</button> <!-- Botão para salvar as alterações -->
+    </div>
+  </div>
+</div>

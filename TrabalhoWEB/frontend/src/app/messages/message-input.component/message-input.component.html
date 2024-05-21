@@ -1,0 +1,43 @@
+<div class="col-md-8 col-md-offset-2">
+  <!-- Div com classes de bootstrap para layout responsivo -->
+  <form
+    (ngSubmit)="onSubmit(refLocalForm)"
+    #refLocalForm="ngForm"
+    ngNativeValidate
+  >
+    <!-- Formulário Angular com evento de envio (ngSubmit) -->
+    <div class="form-group">
+      <!-- Grupo de formulário para o campo "Autor" -->
+      <label for="autor">Autor</label>
+      <!-- Rótulo para o campo "Autor" -->
+      <select name="autor" ngModel required>
+        <!-- Seleção do autor com binding de dados (ngModel) e validação requerida (required) -->
+        <option disabled selected value="">Selecione um autor</option>
+        <!-- Opção padrão desabilitada -->
+        <option *ngFor="let usuario of users$ | async" [value]="usuario._id">
+          {{ usuario.firstName }}
+        </option>
+
+        <!-- Opções de autor geradas dinamicamente -->
+      </select>
+    </div>
+    <div class="form-group">
+      <!-- Grupo de formulário para o campo "Conteúdo" -->
+      <label for="myContent">Conteúdo</label>
+      <!-- Rótulo para o campo "Conteúdo" -->
+      <input
+        type="text"
+        id="myContent"
+        class="form-control"
+        name="myContent"
+        ngModel
+        required
+      />
+      <!-- Entrada de texto para o conteúdo com binding de dados (ngModel) e validação requerida (required) -->
+    </div>
+    <button type="submit" class="btn btn-primary">
+      Salvar minha mensagem - ngForm
+    </button>
+    <!-- Botão de envio do formulário -->
+  </form>
+</div>

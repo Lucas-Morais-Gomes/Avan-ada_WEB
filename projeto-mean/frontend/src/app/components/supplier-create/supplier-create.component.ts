@@ -3,22 +3,21 @@ import { SupplierService } from '../../services/supplier.service';
 import { ProductService } from '../../services/product.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Product } from '../../models/product.model';
 import { Supplier } from '../../models/supplier.model';
 
 @Component({
   selector: 'app-supplier-create',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './supplier-create.component.html',
   styleUrls: ['./supplier-create.component.css']
 })
 export class SupplierCreateComponent implements OnInit {
-  @Input() addSupplierToList!: (supplier: Supplier) => void; // Use o operador ! para assegurar a inicialização
-
-  supplier = { name: '', email: '', cnpj: '', phone: '', product: { _id: '', name: '', type: '', suppliers: [] } };
+  @Input() addSupplierToList!: (supplier: Supplier) => void;
   products: Product[] = [];
+  supplierForm!: FormGroup;
 
   constructor(
     private supplierService: SupplierService, 
@@ -27,6 +26,22 @@ export class SupplierCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.supplierForm = new FormGroup({
+      name: new FormControl("", Validators.required),
+      email: new FormControl("", [
+        Validators.required,
+        Validators.pattern("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")
+      ]),
+      cnpj: new FormControl("", [
+        Validators.required,
+        Validators.pattern("\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}")
+      ]),
+      phone: new FormControl("", [
+        Validators.required,
+        Validators.pattern("\\(\\d{2}\\) \\d{4,5}-\\d{4}")
+      ]),
+      product: new FormControl("", Validators.required)
+    });
     this.loadProducts();
   }
 
@@ -37,13 +52,18 @@ export class SupplierCreateComponent implements OnInit {
   }
 
   createSupplier(): void {
-    this.supplierService.createSupplier(this.supplier).subscribe((newSupplier: Supplier) => {
-      this.addSupplierToList(newSupplier); // Adicionar fornecedor à lista no componente pai
+    if (this.supplierForm.invalid) {
+      return;
+    }
+
+    const supplier: Supplier = this.supplierForm.value;
+    this.supplierService.createSupplier(supplier).subscribe((newSupplier: Supplier) => {
+      this.addSupplierToList(newSupplier);
       this.resetForm();
     });
   }
 
   resetForm(): void {
-    this.supplier = { name: '', email: '', cnpj: '', phone: '', product: { _id: '', name: '', type: '', suppliers: [] } };
+    this.supplierForm.reset();
   }
 }

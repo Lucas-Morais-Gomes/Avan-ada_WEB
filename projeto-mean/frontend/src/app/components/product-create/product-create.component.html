@@ -1,14 +1,19 @@
 <div class="product-form">
   <h1>Criar Produto</h1>
-  <form (ngSubmit)="createProduct()">
-    <label>
-      Nome:
-      <input type="text" [(ngModel)]="product.name" name="name" placeholder="Nome" required>
-    </label>
-    <label>
-      Tipo:
-      <input type="text" [(ngModel)]="product.type" name="type" placeholder="Tipo" required>
-    </label>
-    <button type="submit">Criar</button>
+  <form [formGroup]="productForm" (ngSubmit)="createProduct()">
+
+    Nome:
+    <input type="text" id="name" formControlName="name" placeholder="Nome" required>
+    <div *ngIf="productForm.get('name')?.touched && productForm.get('name')?.invalid">
+      <p class="error-message" *ngIf="productForm.get('name')?.errors?.['required']">Nome é obrigatório</p>
+    </div> <br>
+    
+    Tipo:
+    <input type="text" id="type" formControlName="type" placeholder="Tipo" required>
+    <div *ngIf="productForm.get('type')?.touched && productForm.get('type')?.invalid">
+      <p class="error-message" *ngIf="productForm.get('type')?.errors?.['required']">Tipo é obrigatório</p>
+    </div> <br>
+    
+    <button type="submit" [disabled]="productForm.invalid">Criar</button>
   </form>
 </div>

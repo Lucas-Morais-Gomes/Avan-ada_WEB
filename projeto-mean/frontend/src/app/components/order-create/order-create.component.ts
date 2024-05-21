@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { OrderService } from '../../services/order.service';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { SupplierService } from '../../services/supplier.service';
 import { Product } from '../../models/product.model';
@@ -12,13 +12,13 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-order-create',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './order-create.component.html',
   styleUrls: ['./order-create.component.css']
 })
 export class OrderCreateComponent implements OnInit {
   @Input() addOrderToList!: (order: Order) => void;
-  order: any = { name: '', email: '', cpf: '', product: undefined, supplier: undefined };
+  orderForm!: FormGroup;
   products: Product[] = [];
   suppliers: Supplier[] = [];
 
@@ -26,10 +26,19 @@ export class OrderCreateComponent implements OnInit {
     private orderService: OrderService,
     private productService: ProductService,
     private supplierService: SupplierService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.orderForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      cpf: ['', [Validators.required, Validators.pattern(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/)]],
+      product: ['', Validators.required],
+      supplier: ['']
+    });
+
     this.loadProducts();
   }
 
@@ -40,20 +49,23 @@ export class OrderCreateComponent implements OnInit {
   }
 
   onProductChange(productId: string): void {
-    // Carregar os fornecedores que fornecem o produto selecionado
     this.productService.getSuppliersByProductId(productId).subscribe(suppliers => {
       this.suppliers = suppliers;
     });
   }
 
   createOrder(): void {
-    this.orderService.createOrder(this.order).subscribe((newOrder: Order) => {
+    if (this.orderForm.invalid) {
+      return;
+    }
+
+    this.orderService.createOrder(this.orderForm.value).subscribe((newOrder: Order) => {
       this.addOrderToList(newOrder);
-      this.resetForm()
+      this.resetForm();
     });
   }
 
   resetForm(): void {
-    this.order = { name: '', email: '', cpf: '', product: '', supplier: '' };
+    this.orderForm.reset();
   }
 }

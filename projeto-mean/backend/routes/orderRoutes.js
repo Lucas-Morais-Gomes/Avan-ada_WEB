@@ -8,4 +8,10 @@ router.post('/orders', orderController.createOrder);
 // Rota para obter todos os pedidos
 router.get('/orders', orderController.getOrders);
 
+// Rota para atualizar pedido
+router.put('/orders/:id', orderController.updateOrder);
+
+// Rota para deletar um pedido pelo ID
+router.delete('/orders/:id', orderController.deleteOrder);
+
 module.exports = router;

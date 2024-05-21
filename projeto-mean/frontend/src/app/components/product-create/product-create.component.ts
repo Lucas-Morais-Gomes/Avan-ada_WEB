@@ -1,32 +1,43 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Product } from '../../models/product.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-create',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './product-create.component.html',
   styleUrls: ['./product-create.component.css']
 })
-export class ProductCreateComponent {
+export class ProductCreateComponent implements OnInit {
   @Input() addProductToList!: (product: Product) => void;
-  product = { name: '', type: '' };
+  productForm!: FormGroup;
 
   constructor(private productService: ProductService, private router: Router) { }
 
+  ngOnInit(): void {
+    this.productForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      type: new FormControl('', Validators.required)
+    });
+  }
+
   createProduct(): void {
-    this.productService.createProduct(this.product).subscribe((newProducts: Product) => {
-      this.addProductToList(newProducts);
-      this.resetForm()
+    if (this.productForm.invalid) {
+      return;
+    }
+
+    const product: Product = this.productForm.value;
+    this.productService.createProduct(product).subscribe((newProduct: Product) => {
+      this.addProductToList(newProduct);
+      this.resetForm();
     });
   }
 
   resetForm(): void {
-    this.product = { name: '', type: '' };
+    this.productForm.reset();
   }
-
 }
