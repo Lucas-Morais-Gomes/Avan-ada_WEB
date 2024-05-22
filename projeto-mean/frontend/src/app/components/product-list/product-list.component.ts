@@ -23,10 +23,18 @@ export class ProductListComponent implements OnInit {
   loadProducts(): void {
     this.productService.getProducts().subscribe(data => {
       this.products = data;
+      console.log(data)
     });
   }
 
   addProductToList = (product: Product): void => {
     this.products.push(product); // Adicionar o novo fornecedor ao array local
   };
+
+  deleteProduct(productId: string): void {
+    this.productService.deleteProduct(productId).subscribe(() => {
+      this.loadProducts();
+    });
+  }
+
 }

@@ -21,12 +21,25 @@ export class SupplierListComponent implements OnInit {
   }
 
   loadSuppliers(): void {
-    this.supplierService.getSuppliers().subscribe(data => {
-      this.suppliers = data;
-    });
+    this.supplierService.getSuppliers().subscribe(
+      suppliers => {
+        this.suppliers = suppliers;
+        console.log(suppliers)
+      },
+      error => {
+        console.error('Erro ao carregar fornecedores:', error);
+      }
+    );
   }
+
 
   addSupplierToList = (supplier: Supplier): void => {
     this.suppliers.push(supplier); // Adicionar o novo fornecedor ao array local
   };
+
+  deleteSupplier(id: string): void {
+    this.supplierService.deleteSupplier(id).subscribe(() => {
+      this.loadSuppliers();
+    });
+  }
 }

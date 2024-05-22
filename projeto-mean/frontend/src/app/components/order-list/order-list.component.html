@@ -12,6 +12,7 @@
         <strong>Produto:</strong> {{ order.product.name }} <br>
         <strong>Fornecedor:</strong> {{ order.supplier.name }} <br>
       </div>
+      <button (click)="order._id && deleteOrder(order._id)">Delete</button>
     </li>
   </ul>
 </div>

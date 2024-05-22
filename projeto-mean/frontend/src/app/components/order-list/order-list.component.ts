@@ -21,12 +21,24 @@ export class OrderListComponent implements OnInit {
   }
 
   loadOrders(): void {
-    this.orderService.getOrders().subscribe(data => {
-      this.orders = data;
-      console.log(data)
-    })};
+    this.orderService.getOrders().subscribe(orders => {
+      this.orders = orders;
+      console.log(orders)
+    },
+    error => {
+      console.error('Erro ao carregar pedidos:', error);
+    }
+  )};
 
   addOrderToList = (order: Order): void => {
       this.orders.push(order);
     };
+
+
+  deleteOrder(id: string): void {
+    this.orderService.deleteOrder(id).subscribe(() => {
+      this.loadOrders();
+    })
+  }
+
 }

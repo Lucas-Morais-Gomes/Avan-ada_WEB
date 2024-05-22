@@ -24,8 +24,8 @@ export class SupplierService {
     return this.http.put<Supplier>(url, supplier);
   }
 
-  deleteSupplier(id: string): Observable<void> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<void>(url);
+  deleteSupplier(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
 }

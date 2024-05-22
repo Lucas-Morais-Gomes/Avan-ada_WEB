@@ -5,7 +5,9 @@
 
   <ul>
     <li *ngFor="let product of products" class="product-item">
-      {{ product.name }} - {{ product.type }}
+      <h3>{{ product.name }}</h3>
+      <p><strong>Tipo:</strong> {{ product.type }}</p>
+      <button (click)="product._id && deleteProduct(product._id)">Delete</button>
     </li>
   </ul>
 </div>

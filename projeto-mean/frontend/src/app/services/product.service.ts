@@ -25,10 +25,11 @@ export class ProductService {
     return this.http.post<Product>(this.apiUrl, product);
   }
 
-  deleteProduct(id: string): Observable<void> {
-    const url = `${this.apiUrl}/${id}`;
+  deleteProduct(productId: string): Observable<void> {
+    const url = `${this.apiUrl}/${productId}`;
     return this.http.delete<void>(url);
   }
+
 
   updateProductWithSupplierId(productId: string, supplierId: string): Observable<void> {
     const url = `${this.apiUrl}/${productId}/supplier`;

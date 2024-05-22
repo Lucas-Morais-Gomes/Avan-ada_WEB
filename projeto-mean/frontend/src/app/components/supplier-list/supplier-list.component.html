@@ -14,6 +14,7 @@
           {{ supplier.product.name }} - {{ supplier.product.type }}
         </li>
       </ul>
+      <button (click)="supplier._id && deleteSupplier(supplier._id)">Delete</button>
     </li>
   </ul>
 </div>

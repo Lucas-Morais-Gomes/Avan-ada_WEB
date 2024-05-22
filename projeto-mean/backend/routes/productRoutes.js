@@ -17,7 +17,7 @@ router.get('/products/:productId/suppliers', productController.getSuppliersByPro
 // Rota para atualizar produto
 router.put('/products/:id', productController.updateProduct);
 
-// Rota para deletar um produto pelo ID
-router.delete('/products/:id', productController.deleteProduct);
+// Rota para deletar produto
+router.delete('/products/:productId', productController.deleteProduct);
 
 module.exports = router;

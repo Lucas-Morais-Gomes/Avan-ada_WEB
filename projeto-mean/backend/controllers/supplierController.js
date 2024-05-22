@@ -1,6 +1,6 @@
 const Supplier = require('../models/Supplier');
 const Product = require('../models/Product');
-const Order = require('../models/Order');
+const Order = require("../models/Order")
 const mongoose = require('mongoose');
 
 // Função para criar um novo fornecedor
@@ -99,29 +99,26 @@ exports.updateSupplier = async (req, res) => {
     }
 };
 
-// Função para excluir um fornecedor e seus pedidos associados
+// Função para deletar um fornecedor e seus pedidos associados
 exports.deleteSupplier = async (req, res) => {
-    console.log('Requisição para excluir um fornecedor recebida');
+    console.log('Requisição para excluir um Fornecedor recebida');
     try {
         const { id } = req.params;
 
-        // Verificar se o fornecedor existe
-        const existingSupplier = await Supplier.findById(id);
-        if (!existingSupplier) {
+        // Remove pedidos associados
+        await Order.deleteMany({ supplier: id });
+        
+        // Encontre e remova o fornecedor
+        const supplier = await Supplier.findByIdAndDelete(id);
+        if (!supplier) {
             console.log('Fornecedor não encontrado');
             return res.status(404).json({ message: 'Fornecedor não encontrado' });
-        }
+        }        
 
-        // Excluir os pedidos associados ao fornecedor
-        await Order.deleteMany({ supplier: id });
-
-        // Excluir o fornecedor
-        await Supplier.findByIdAndDelete(id);
-
-        console.log('Fornecedor e pedidos associados excluídos com sucesso');
-        return res.status(200).json({ message: 'Fornecedor e pedidos associados excluídos com sucesso' });
+        console.log('Fornecedor e relacionados deletados com sucesso');
+        res.status(200).json({ message: 'Fornecedor e relacionados deletados com sucesso' });
     } catch (err) {
-        console.error('Erro ao excluir fornecedor:', err.message);
-        return res.status(500).json({ message: err.message });
+        console.error('Erro ao excluir Fornecedor:', err.message);
+        res.status(500).json({ message: err.message });
     }
 };

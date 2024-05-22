@@ -114,24 +114,19 @@ exports.deleteProduct = async (req, res) => {
     try {
         const { productId } = req.params;
 
-        // Encontre o produto pelo ID
-        const product = await Product.findById(productId);
-        if (!product) {
-            console.log('Produto não encontrado');
-            return res.status(404).json({ message: 'Produto não encontrado' });
-        }
-
-        // Exclua os fornecedores associados a este produto
-        await Supplier.deleteMany({ products: productId });
-
-        // Exclua os pedidos que contêm este produto
+        // Remove fornecedores e pedidos associados
+        await Supplier.deleteMany({ product: productId });
         await Order.deleteMany({ product: productId });
 
-        // Finalmente, exclua o próprio produto
-        await Product.findByIdAndDelete(productId);
+         // Encontre e remova o produto
+         const product = await Product.findByIdAndDelete(productId);
+         if (!product) {
+             console.log('Produto não encontrado');
+             return res.status(404).json({ message: 'Produto não encontrado' });
+         }
 
-        console.log('Produto e seus relacionamentos excluídos com sucesso');
-        res.status(200).json({ message: 'Produto e seus relacionamentos excluídos com sucesso' });
+        console.log('Produto e relacionados deletados com sucesso');
+        res.status(200).json({ message: 'Produto e relacionados deletados com sucesso' });
     } catch (err) {
         console.error('Erro ao excluir produto:', err.message);
         res.status(500).json({ message: err.message });

@@ -6,5 +6,5 @@ export interface Supplier {
   email: string;
   cnpj: string;
   phone: string;
-  product: Product; // Produto único associado ao fornecedor
+  product: Product; 
 }
