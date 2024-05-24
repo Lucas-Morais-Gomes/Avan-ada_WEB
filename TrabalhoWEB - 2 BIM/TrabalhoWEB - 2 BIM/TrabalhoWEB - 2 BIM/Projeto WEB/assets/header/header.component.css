@@ -1,0 +1,47 @@
+header {
+  background-color: #e7b036;
+  color: #fff;
+  padding: 20px;
+  border-radius: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  max-width: 150px;
+  margin-right: 20px;
+}
+
+.logo img {
+  max-width: 100%;
+  height: auto;
+}
+
+.nav-pills {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  flex-grow: 1;
+}
+
+.nav-pills li {
+  margin-right: 10px;
+}
+
+.nav-pills a {
+  text-decoration: none;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 20px;
+}
+
+.nav-pills a:hover,
+.nav-pills a:focus {
+  background-color: #c99429;
+}
+
+.nav-pills li.active a {
+  background-color: #c99429;
+}

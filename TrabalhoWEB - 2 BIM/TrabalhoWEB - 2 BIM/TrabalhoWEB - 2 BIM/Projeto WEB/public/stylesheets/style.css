@@ -1,0 +1,54 @@
+body {
+  padding: 50px;
+  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+  background-color: #282a6b;
+  color: #575757;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label,
+textarea,
+button {
+  color: #fff !important;
+}
+
+a {
+  color: #505050;
+  cursor: pointer;
+}
+
+a:hover,
+a:active {
+  color: #6d6b6b;
+  text-decoration: underline;
+}
+
+a.danger {
+  color: red;
+}
+
+.spacing {
+  margin-bottom: 20px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.product-table {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.product-table > div {
+  flex: 0 0 25%;
+  margin-right: 20px;
+}

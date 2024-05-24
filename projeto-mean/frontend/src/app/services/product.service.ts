@@ -30,6 +30,10 @@ export class ProductService {
     return this.http.delete<void>(url);
   }
 
+  updateProduct(productId: string, product: Product): Observable<void> {
+    const url = `${this.apiUrl}/${productId}`;
+    return this.http.put<void>(url, product);
+  }
 
   updateProductWithSupplierId(productId: string, supplierId: string): Observable<void> {
     const url = `${this.apiUrl}/${productId}/supplier`;

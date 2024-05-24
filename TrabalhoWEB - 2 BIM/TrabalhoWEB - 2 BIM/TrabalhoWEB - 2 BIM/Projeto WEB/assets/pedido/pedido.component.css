@@ -1,0 +1,92 @@
+h1 {
+  text-align: center;
+  color: #007bff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.card {
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 3px solid #e7b036;
+  border-radius: 35px;
+}
+
+.btn-primary {
+  margin-top: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.table {
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+  color: #007bff;
+}
+
+.btn-success,
+.btn-danger {
+  margin: 2px;
+}
+
+.btn-success,
+.btn-danger {
+  margin: 2px;
+}
+
+.bold-name {
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  color: #000000;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #000000;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group select option {
+  font-size: 14px;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: #66afe9;
+  box-shadow: 0 0 5px #66afe9;
+}
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 40px;
+}
+
+.card.order-form {
+  max-width: 400px;
+  margin: auto;
+}
+
+.card.order-table {
+  flex-grow: 1;
+  margin: auto;
+}

@@ -1,0 +1,1 @@
+C:\"Program Files"\MongoDB\Server\7.0\bin\mongod.exe --dbpath "C:\Users\nikolas.tostes\Documents\Estudos\WEB\Projetos\TrabalhoWEB - 2 BIM\Projeto WEB\bin\data\db"

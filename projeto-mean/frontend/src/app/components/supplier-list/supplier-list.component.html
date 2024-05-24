@@ -1,20 +1,55 @@
-<div>
-  <app-supplier-create [addSupplierToList]="addSupplierToList"></app-supplier-create>
+<app-supplier-create [addSupplierToList]="addSupplierToList"></app-supplier-create>
+
+<div class="card supplier-table">
+  <h2 style="text-align: center">Lista de Fornecedores</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome do Fornecedor</th>
+        <th scope="col">Email</th>
+        <th scope="col">CNPJ</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Produtos Fornecidos</th>
+        <th scope="col">Opções</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let supplier of suppliers" class="supplier-item">
+        <td class="bold-name">{{ supplier.name }}</td>
+        <td>{{ supplier.email }}</td>
+        <td>{{ supplier.cnpj }}</td>
+        <td>{{ supplier.phone }}</td>
+        <td>{{ supplier.product.name }} - {{ supplier.product.type }}</td>
+        <td>
+          <button class="buttonDelete" (click)="supplier._id && deleteSupplier(supplier._id)">Delete</button>
+          <button class="buttonEdit" (click)="openEditModal(supplier)">Editar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal" [ngClass]="{ 'is-active': editModalActive }">
+  <div class="modal-content">
+    <div class="box">
+      <h3>Editar Fornecedor</h3>
+      <form [formGroup]="editSupplierForm" (ngSubmit)="saveChanges()">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" formControlName="name" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" required>
+        <label for="cnpj">CNPJ:</label>
+        <input type="text" id="cnpj" formControlName="cnpj" required>
+        <label for="phone">Telefone:</label>
+        <input type="text" id="phone" formControlName="phone" required>
+        <label for="product">Produto Fornecido:</label>
+        <select id="product" formControlName="product" required >">
+          <option *ngFor="let product of products" [ngValue]="product">{{ product.name }}</option>
+        </select>
+        <button class="buttonEdit" type="submit">Salvar Alterações</button> <br>
+        <button class="buttonDelete" (click)="closeEditModal()">Close</button>
+      </form>
+    </div>
+  </div>
   
-  <h2>Lista de Fornecedores</h2>
-  <ul class="suppliers-list">
-    <li *ngFor="let supplier of suppliers" class="supplier-item">
-      <h3>{{ supplier.name }}</h3>
-      <p><strong>Email:</strong> {{ supplier.email }}</p>
-      <p><strong>CNPJ:</strong> {{ supplier.cnpj }}</p>
-      <p><strong>Telefone:</strong> {{ supplier.phone }}</p>
-      <p><strong>Produtos Fornecidos:</strong></p>
-      <ul class="product-list">
-        <li class="product-item">
-          {{ supplier.product.name }} - {{ supplier.product.type }}
-        </li>
-      </ul>
-      <button (click)="supplier._id && deleteSupplier(supplier._id)">Delete</button>
-    </li>
-  </ul>
 </div>

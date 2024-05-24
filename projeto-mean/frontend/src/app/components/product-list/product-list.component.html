@@ -1,13 +1,41 @@
 <div class="product-list">
   <app-product-create [addProductToList]="addProductToList"></app-product-create>
-  
-  <h2>Lista de Produtos</h2>
 
-  <ul>
-    <li *ngFor="let product of products" class="product-item">
-      <h3>{{ product.name }}</h3>
-      <p><strong>Tipo:</strong> {{ product.type }}</p>
-      <button (click)="product._id && deleteProduct(product._id)">Delete</button>
-    </li>
-  </ul>
+<div class="card product-table">
+  <h2 style="text-align: center">Lista de Produtos</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Opções</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products" class="product-item">
+        <td> {{ product.name }} </td>
+        <td> {{ product.type }} </td>
+        <button class="buttonDelete" (click)="product._id && deleteProduct(product._id)">Delete</button>
+        <button class="buttonEdit" (click)="openEditModal(product)">Editar</button>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal" [ngClass]="{ 'is-active': editModalActive }">
+  <div class="modal-content">
+    <div class="box">
+      <h3>Editar Produto</h3>
+      <form [formGroup]="editProductForm" (ngSubmit)="saveChanges()">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" formControlName="name" required>
+        <label for="type">Tipo:</label>
+        <input type="text" id="type" formControlName="type" required>
+        <div style="margin-top: 10px;">
+          <button class="buttonEdit" type="submit">Salvar Alterações</button>
+          <button class="buttonDelete" type="button" (click)="closeEditModal()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
