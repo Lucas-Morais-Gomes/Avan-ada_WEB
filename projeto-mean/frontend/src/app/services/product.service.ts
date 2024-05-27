@@ -16,11 +16,6 @@ export class ProductService {
     return this.http.get<Product[]>(this.apiUrl);
   }
 
-  getProductById(productId: string): Observable<Product> {
-    const url = `${this.apiUrl}/${productId}`;
-    return this.http.get<Product>(url);
-  }
-
   createProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(this.apiUrl, product);
   }
@@ -33,11 +28,6 @@ export class ProductService {
   updateProduct(productId: string, product: Product): Observable<void> {
     const url = `${this.apiUrl}/${productId}`;
     return this.http.put<void>(url, product);
-  }
-
-  updateProductWithSupplierId(productId: string, supplierId: string): Observable<void> {
-    const url = `${this.apiUrl}/${productId}/supplier`;
-    return this.http.put<void>(url, { supplierId });
   }
 
   getSuppliersByProductId(productId: string): Observable<Supplier[]> {
